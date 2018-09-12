@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Example FourSquare</string>
+    <string name="login_text">LOGIN</string>
+</resources>
