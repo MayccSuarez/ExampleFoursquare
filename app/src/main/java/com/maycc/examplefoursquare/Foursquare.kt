@@ -1,5 +1,6 @@
 package com.maycc.examplefoursquare
 
+import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import com.foursquare.android.nativeoauth.FoursquareOAuth
@@ -11,6 +12,9 @@ class Foursquare(val activity: AppCompatActivity) {
 
     private val REQUEST_CODE_FRS_CONNECT = 200
     private val REQUEST_CODE_FRS_TOKEN   = 201
+
+    private val PREFERENCE_TOKEN = "preference_token"
+    private val ACCESS_TOKEN     = "access_token"
 
     fun startAuthentication() {
         val intent = FoursquareOAuth.getConnectIntent(activity.applicationContext, CLIENT_ID)
@@ -56,11 +60,36 @@ class Foursquare(val activity: AppCompatActivity) {
         val exception = tokenResponse.exception
 
         if (exception == null) {
-            showToast(activity.applicationContext, tokenResponse.accessToken)
+            val accessToken = tokenResponse.accessToken
+            saveToken(accessToken)
+            startHomeActivity(activity)
 
         } else {
             showToast(activity.applicationContext, "No se pudo obtener el token...")
         }
+    }
+
+
+    private fun saveToken(token: String) {
+        val sharedPreferences = activity.getSharedPreferences(PREFERENCE_TOKEN, Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+
+        editor.putString(ACCESS_TOKEN, token).commit()
+    }
+
+
+    fun getToken(): String {
+        val sharedPreferences = activity.getSharedPreferences(PREFERENCE_TOKEN, Context.MODE_PRIVATE)
+
+        return sharedPreferences.getString(ACCESS_TOKEN, "")
+    }
+
+    fun thereIsToken(): Boolean {
+        val token = getToken()
+
+        if (token.isNotEmpty()) return true
+
+        return false
     }
 
 }

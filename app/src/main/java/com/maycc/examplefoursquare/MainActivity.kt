@@ -18,9 +18,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun setListenerLoginBtn() {
         btnLogin.setOnClickListener {
-            foursquare.startAuthentication()
+
+            if(foursquare.thereIsToken()) {
+                startHomeActivity(this)
+
+            } else {
+                foursquare.startAuthentication()
+            }
         }
     }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
