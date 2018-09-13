@@ -56,10 +56,10 @@ class Foursquare(val activity: AppCompatActivity) {
         val exception = tokenResponse.exception
 
         if (exception == null) {
-            showToast(activity.applicationContext, "No se pudo obtener el token...")
+            showToast(activity.applicationContext, tokenResponse.accessToken)
 
         } else {
-            showToast(activity.applicationContext, tokenResponse.accessToken)
+            showToast(activity.applicationContext, "No se pudo obtener el token...")
         }
     }
 
