@@ -13,18 +13,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        if(foursquare.thereIsToken()) {
+            startHomeActivity(this)
+        }
+
         setListenerLoginBtn()
     }
 
     private fun setListenerLoginBtn() {
         btnLogin.setOnClickListener {
-
-            if(foursquare.thereIsToken()) {
-                startHomeActivity(this)
-
-            } else {
-                foursquare.startAuthentication()
-            }
+            foursquare.startAuthentication()
         }
     }
 
