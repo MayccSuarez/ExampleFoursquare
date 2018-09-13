@@ -69,14 +69,12 @@ class Foursquare(val activity: AppCompatActivity) {
         }
     }
 
-
     private fun saveToken(token: String) {
         val sharedPreferences = activity.getSharedPreferences(PREFERENCE_TOKEN, Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
 
         editor.putString(ACCESS_TOKEN, token).commit()
     }
-
 
     fun getToken(): String {
         val sharedPreferences = activity.getSharedPreferences(PREFERENCE_TOKEN, Context.MODE_PRIVATE)
