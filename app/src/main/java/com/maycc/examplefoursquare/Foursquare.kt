@@ -84,7 +84,7 @@ class Foursquare(val activity: AppCompatActivity) {
         return sharedPreferences.getString(ACCESS_TOKEN, "")
     }
 
-    fun thereIsToken(): Boolean {
+    fun isSaveToken(): Boolean {
         val token = getToken()
 
         if (token.isNotEmpty()) return true

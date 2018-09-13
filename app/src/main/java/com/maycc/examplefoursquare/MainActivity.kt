@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        if(foursquare.thereIsToken()) {
+        if(foursquare.isSaveToken()) {
             startHomeActivity(this)
         }
 
