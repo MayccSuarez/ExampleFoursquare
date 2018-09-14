@@ -24,17 +24,10 @@ class VenueAdapter(var venues: ArrayList<Venue>) : RecyclerView.Adapter<VenueAda
         val venue = venues[position]
 
         val icon = venue.categories[0].icon
-        val iconUrl = getIconUrl(icon)
+        val iconUrl = icon.getIconUrl()
 
         holder.tvNameVenue.text = venue.name
         Picasso.get().load(iconUrl).into(holder.ivVenue)
-    }
-
-    private fun getIconUrl(icon: Icon): String {
-        val prefix = icon.prefix
-        val suffix = icon.suffix
-
-        return prefix + "bg_64" + suffix
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
