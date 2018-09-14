@@ -7,6 +7,7 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.google.gson.Gson
 
 class HomeActivity : AppCompatActivity() {
 
@@ -28,11 +29,20 @@ class HomeActivity : AppCompatActivity() {
         val request = StringRequest(Request.Method.GET, url, Response.Listener {
             response ->
             Log.d("RESPONSE_HTTP", response)
+            convertJsonToFrqResponse(response)
 
         }, Response.ErrorListener {
             error ->  Log.d("ERROR_RESPONSE", error.message)
         })
 
         requestQueue.add(request)
+    }
+
+    private fun convertJsonToFrqResponse(json: String) {
+        val gSon = Gson()
+        val frqResponse = gSon.fromJson(json, FrqResponse::class.java)
+        val venues = frqResponse.response.venues
+
+        Log.d("VENUES_COUNT", venues.size.toString())
     }
 }
